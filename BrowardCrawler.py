@@ -1,3 +1,9 @@
+## Broward Crawler
+
+## v1 4/3/2018
+
+## Write CSV Files
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -13,6 +19,9 @@ source = driver.page_source
 page_soup=soup(source, "html.parser")
 details = page_soup.findAll("tr",{"class":"details selected"})
 detail=driver.find_elements_by_xpath('//*[@title="Show Details"]')
+filenamet= "linksbroward.csv"
+ft=open(filenamet,'a')
+
 
 for j in range(len(details)):
       
@@ -33,7 +42,7 @@ for auction in auctions:
     value=auction.findAll("td",{"class":"value"})
     Parcel=value[0].a.get('href')
     Links= value[7].a.get("href")
-    #ft.write(Parcel + "," + Links + "\n")
+    ft.write(Parcel + "," + Links + "\n")
     print(Parcel)
     print(Links)
 

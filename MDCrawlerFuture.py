@@ -4,7 +4,6 @@
 
 ## Write CSV Files
 
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -47,7 +46,6 @@ for i in range(1,maxpg):
     auctions = Head_W.findAll("div",{"class":"AUCTION_ITEM PREVIEW"})
     auctions = auctions+Head_W.findAll("div",{"class":"AUCTION_ITEM PREVIEW adc-spacer"})
     
-    
     #Organize Data
     for auction in auctions:
 
@@ -61,6 +59,7 @@ for i in range(1,maxpg):
         Auction_Info= auction.findAll("td",{"class":"AD_DTA"})
         Type=Auction_Info[0].text
         Foreclose_Info=auction.findAll("td",{"class":"AD_DTA"})
+        
         #Foreclosure Auctions
         if Type=="FORECLOSURE":
             continue
@@ -83,16 +82,10 @@ for i in range(1,maxpg):
                 Location=Auction_Info[5].text
                 Assessed_Value=Auction_Info[6].text
         
-            ff.write(Status + "," + Type + "," + Sold_To + "," + Sold_Amount.replace(",","  ") + "," + Case_Number + "," + Final_Judge.replace(",","  ") + "," + ParcelID + "," + Address+ (" ")+ Location.replace(",","|") + "," + Assessed_Value.replace(",","  ") + "\n")
-        
-            print(ParcelID_text)
-            print(Type)
-            print(Case_Number)
-            print(Final_Judge)
-            print(ParcelID)
-            print(Address)
-            print(Location)
-            print(Assessed_Value)
+            ff.write(Status + "," + Type + "," + Sold_To + "," + Sold_Amount.replace(",","  ") + "," + Case_Number + "," + 
+                     Final_Judge.replace(",","  ") + "," + ParcelID + "," + Address+ (" ")+ Location.replace(",","|") + "," + 
+                     Assessed_Value.replace(",","  ") + "\n")
+
         #Taxdeed
         else:
             Case_Number=Auction_Info[1].text.strip()
@@ -107,17 +100,9 @@ for i in range(1,maxpg):
             else:
                 Assessed_Value=Auction_Info[7].text
     
-            ft.write(Status + "," + Type + "," + Case_Number + "," + Certificate + "," + Opening_Bid.replace(",","  ") + "," + ParcelID + "," + Address+Location.replace(",","|") + "," + Assessed_Value.replace(",","  ") + "\n")
-            print(Status)
-            print(Type)
-            print(Case_Number)
-            print(Certificate)
-            print(Opening_Bid)
-            print(ParcelID)
-            print(Address)
-            print(Location)
-            print(Assessed_Value)
-    
+            ft.write(Status + "," + Type + "," + Case_Number + "," + Certificate + "," + Opening_Bid.replace(",","  ") 
+                     + "," + ParcelID + "," + Address+Location.replace(",","|") + "," + Assessed_Value.replace(",","  ") + "\n")
+
 driver.quit()
 ff.close()    
 ft.close()
