@@ -22,38 +22,29 @@ ft.write(headers)
 driver = webdriver.Chrome()
 driver.get('')
 numpg=5
-
 maxpg=numpg+1
-
 
 source = driver.page_source 
 page_soup=soup(source, "html.parser")
 details = page_soup.findAll("tr",{"class":"details selected"})
 
-
-
-
-
 for i in range(1,maxpg):
     source = driver.page_source 
     page_soup=soup(source, "html.parser")
     details = page_soup.findAll("tr",{"class":"details selected"})
-    
     detail=driver.find_elements_by_xpath('//*[@title="Show Details"]')
 
     for j in range(len(details)):
-      
         detail[j].click() 
-       
         try:
             element=WebDriverWait(driver, 0.5).until(EC.text_to_be_present_in_element_value((By.CLASS_NAME, "label"),"Parcel #:"))
         except TimeoutException:
             print("")
 
         soupsource= driver.page_source 
-    
         psoup= soup(soupsource, "html.parser")
         auctions= psoup.findAll("table",{"class":"bare wrap"})
+
     for auction in auctions:
         value=auction.findAll("td",{"class":"value"})
         Parcel=value[0].a.get('href')
@@ -63,20 +54,13 @@ for i in range(1,maxpg):
         print(Links)
     
     j=0
-     
-       
     nextpg=driver.find_element_by_link_text('Next »')
     nextpg.click()
-    
-      
     try:
         element=WebDriverWait(driver, 0.5).until(EC.text_to_be_present_in_element_value((By.CLASS_NAME, "label"),"Parcel #:"))
     except TimeoutException:
         print("")
     source = driver.page_source 
-    page_soup=soup(source, "html.parser")   
+    page_soup=soup(source, "html.parser")    
     
-    
-     
- 
 driver.quit()
